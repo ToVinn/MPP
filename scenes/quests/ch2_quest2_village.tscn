@@ -1,0 +1,158 @@
+[gd_scene load_steps=14 format=3 uid="uid://c2village89123"]
+
+[ext_resource type="Script" path="res://scripts/scenes/ch2_quest2_village.gd" id="1_village_script"]
+[ext_resource type="Script" path="res://scripts/entities/topdown_map.gd" id="2_map_script"]
+[ext_resource type="PackedScene" uid="uid://bply8271aren" path="res://prefabs/player.tscn" id="3_player_scene"]
+[ext_resource type="PackedScene" uid="uid://cxinteract771" path="res://prefabs/interactable.tscn" id="4_interact_scene"]
+[ext_resource type="PackedScene" uid="uid://bdry8927191" path="res://prefabs/ui/diary_puzzle_ui.tscn" id="5_dpuzzle_scene"]
+[ext_resource type="PackedScene" uid="uid://dmcut8912301" path="res://prefabs/ui/memory_cutscene.tscn" id="6_cutscene_scene"]
+[ext_resource type="PackedScene" uid="uid://b32hud873491" path="res://prefabs/ui/hud.tscn" id="7_hud_scene"]
+[ext_resource type="PackedScene" uid="uid://c421712a10dialog" path="res://prefabs/ui/dialogue_box.tscn" id="8_dialog_scene"]
+[ext_resource type="PackedScene" uid="uid://mnstr8921782" path="res://prefabs/monster.tscn" id="9_monster_scene"]
+[ext_resource type="PackedScene" uid="uid://chst8921782" path="res://prefabs/environment/treasure_chest.tscn" id="10_chest_scene"]
+[ext_resource type="PackedScene" uid="uid://trch8921782" path="res://prefabs/environment/torch.tscn" id="11_torch_scene"]
+[ext_resource type="PackedScene" uid="uid://bldg892178" path="res://prefabs/environment/building.tscn" id="12_bldg_scene"]
+[ext_resource type="PackedScene" uid="uid://tree892178" path="res://prefabs/environment/tree.tscn" id="13_tree_scene"]
+
+[node name="Ch2Quest2Village" type="Node2D"]
+script = ExtResource("1_village_script")
+
+[node name="TopdownMap" type="Node2D" parent="."]
+script = ExtResource("2_map_script")
+map_type = "ruined_village"
+map_size = Vector2(2752, 1536)
+
+[node name="StaticBoundaries" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="TopWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 2752, 0, 2752, 140, 0, 140)
+
+[node name="BottomWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 1420, 2752, 1420, 2752, 1536, 0, 1536)
+
+[node name="LeftWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 1536, 0, 1536)
+
+[node name="RightWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(2650, 0, 2752, 0, 2752, 1536, 2650, 1536)
+
+[node name="YSortEntities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="RuinedManorWest" parent="YSortEntities" instance=ExtResource("12_bldg_scene")]
+position = Vector2(500, 440)
+
+[node name="RuinedHouseNorth" parent="YSortEntities" instance=ExtResource("12_bldg_scene")]
+position = Vector2(1050, 360)
+
+[node name="RuinedHallCenter" parent="YSortEntities" instance=ExtResource("12_bldg_scene")]
+position = Vector2(1750, 480)
+
+[node name="RuinedMarketSouth" parent="YSortEntities" instance=ExtResource("12_bldg_scene")]
+position = Vector2(950, 1080)
+
+[node name="RuinedHouseEast" parent="YSortEntities" instance=ExtResource("12_bldg_scene")]
+position = Vector2(2150, 520)
+
+[node name="DeadTree1" parent="YSortEntities" instance=ExtResource("13_tree_scene")]
+position = Vector2(300, 950)
+
+[node name="DeadTree2" parent="YSortEntities" instance=ExtResource("13_tree_scene")]
+position = Vector2(750, 320)
+
+[node name="DeadTree3" parent="YSortEntities" instance=ExtResource("13_tree_scene")]
+position = Vector2(1950, 1050)
+
+[node name="DeadTree4" parent="YSortEntities" instance=ExtResource("13_tree_scene")]
+position = Vector2(2350, 380)
+
+[node name="TreasureChest1" parent="YSortEntities" instance=ExtResource("10_chest_scene")]
+position = Vector2(320, 480)
+chest_id = "village_manor_chest"
+reward_heal = 2
+lore_message = "★ Peti Tersembunyi: Memperoleh Elixir Vitalitas (+2 Hati) & Kalung Perak Berkarat!"
+
+[node name="TreasureChest2" parent="YSortEntities" instance=ExtResource("10_chest_scene")]
+position = Vector2(2050, 1200)
+chest_id = "village_market_chest"
+reward_heal = 2
+lore_message = "★ Peti Tersembunyi: Memperoleh Elixir Vitalitas (+2 Hati) & Kristal Ingatan Kecil!"
+
+[node name="Torch1" parent="YSortEntities" instance=ExtResource("11_torch_scene")]
+position = Vector2(1380, 640)
+
+[node name="Torch2" parent="YSortEntities" instance=ExtResource("11_torch_scene")]
+position = Vector2(1780, 280)
+
+[node name="Monster1" parent="YSortEntities" instance=ExtResource("9_monster_scene")]
+position = Vector2(850, 750)
+monster_type = "shadow_spectre"
+max_hp = 3
+speed = 80.0
+chase_speed = 130.0
+
+[node name="Monster2" parent="YSortEntities" instance=ExtResource("9_monster_scene")]
+position = Vector2(1400, 450)
+monster_type = "shadow_spectre"
+max_hp = 3
+speed = 85.0
+chase_speed = 135.0
+
+[node name="Monster3" parent="YSortEntities" instance=ExtResource("9_monster_scene")]
+position = Vector2(2000, 750)
+monster_type = "shadow_spectre"
+max_hp = 4
+speed = 90.0
+chase_speed = 140.0
+
+[node name="Player" parent="YSortEntities" instance=ExtResource("3_player_scene")]
+position = Vector2(250, 750)
+
+[node name="DiaryPage1" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(400, 350)
+prompt_text = "[E] Ambil Lembaran Jurnal Kuno (1)"
+visual_type = "paper"
+
+[node name="DiaryPage2" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1380, 680)
+prompt_text = "[E] Ambil Lembaran Jurnal Kuno (2)"
+visual_type = "paper"
+
+[node name="DiaryPage3" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1800, 350)
+prompt_text = "[E] Ambil Lembaran Jurnal Kuno (3)"
+visual_type = "paper"
+
+[node name="DiaryPage4" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(2350, 750)
+prompt_text = "[E] Ambil Lembaran Jurnal Kuno (4)"
+visual_type = "paper"
+
+[node name="RuinedWell" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1440, 700)
+prompt_text = "[E] Periksa Sumur Tua Berlumut"
+visual_type = "relief"
+
+[node name="SecretVaultDoor" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1440, 160)
+prompt_text = "[E] Periksa Pintu Ruang Rahasia"
+visual_type = "door"
+
+[node name="MemoryCrystal" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1440, 80)
+prompt_text = "[E] Sentuh Kristal Janji"
+visual_type = "altar"
+
+[node name="ExitDoor" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1560, 80)
+prompt_text = "[E] Menuju Kuil Astra"
+visual_type = "door"
+
+[node name="DiaryPuzzleUI" parent="." instance=ExtResource("5_dpuzzle_scene")]
+
+[node name="MemoryCutscene" parent="." instance=ExtResource("6_cutscene_scene")]
+
+[node name="HUD" parent="." instance=ExtResource("7_hud_scene")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("8_dialog_scene")]

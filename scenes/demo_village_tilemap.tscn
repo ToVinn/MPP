@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvillagemap01"]
+
+[ext_resource type="Script" path="res://scripts/entities/tilemap_builder.gd" id="1_builder"]
+[ext_resource type="Script" path="res://scripts/scenes/demo_village_tilemap.gd" id="2_demo_script"]
+[ext_resource type="PackedScene" uid="uid://bply8271aren" path="res://prefabs/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://bldg892178" path="res://prefabs/environment/building.tscn" id="4_bldg"]
+[ext_resource type="PackedScene" uid="uid://tree892178" path="res://prefabs/environment/tree.tscn" id="5_tree"]
+[ext_resource type="PackedScene" uid="uid://bpinetrees001" path="res://prefabs/environment/tree_pine.tscn" id="6_tree_pine"]
+
+[node name="DemoVillageTilemap" type="Node2D"]
+script = ExtResource("2_demo_script")
+
+[node name="TilemapBuilder" type="Node2D" parent="."]
+script = ExtResource("1_builder")
+ground_layout = PackedStringArray("...............dd...............", "...............dd...............", "...............dd.....R.........", "...............dd...............", "........E......dd...............", "...............dd......WWWW.....", "...............dd.....WWWWWW....", "...............dd.....WWWWWW....", "...............dd.....WWWWWW....", "...............dd......WWWW.....", "..........cccccddc..............", "..........cccccccc..............", "..........cccccccc........E.....", "..........cccccccc...R..........", "..ddddddddcccccddcdddddddddddddd", "..ddddddddcccccddcdddddddddddddd", "..........cccccccc..............", "..........cccccccc..............", "......E...cccccccc..............", "..........cccccccc..............", "...............dd........R......", "........R......dd...............", "...fffffff.....dd...............", "...f.....f.....dd...............", "...f..E..f.....dd...............", "...f.....f.....dd...............", "...f...R.f.....dd...............", "...fffffff.....dd...............", "...............dd...............", "...............dd...R...........", "........E......dd...............", "...............dd...........E...")
+
+[node name="YSortEntities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="YSortEntities" instance=ExtResource("3_player")]
+position = Vector2(1024, 1792)
+
+[node name="HouseNW" parent="YSortEntities" instance=ExtResource("4_bldg")]
+position = Vector2(460, 700)
+
+[node name="HouseNE" parent="YSortEntities" instance=ExtResource("4_bldg")]
+position = Vector2(1310, 700)
+
+[node name="HouseSE" parent="YSortEntities" instance=ExtResource("4_bldg")]
+position = Vector2(1330, 1500)
+
+[node name="Tree01" parent="YSortEntities" instance=ExtResource("6_tree_pine")]
+position = Vector2(216, 96)
+
+[node name="Tree02" parent="YSortEntities" instance=ExtResource("5_tree")]
+position = Vector2(472, 108)
+
+[node name="Tree03" parent="YSortEntities" instance=ExtResource("6_tree_pine")]
+position = Vector2(716, 84)
+
+[node name="Tree04" parent="YSortEntities" instance=ExtResource("5_tree")]
+position = Vector2(1320, 104)
+
+[node name="Tree05" parent="YSortEntities" instance=ExtResource("6_tree_pine")]
+position = Vector2(1592, 92)
+
+[node name="Tree06" parent="YSortEntities" instance=ExtResource("5_tree")]
+position = Vector2(1868, 100)
+
+[node name="Tree07" parent="YSortEntities" instance=ExtResource("6_tree_pine")]
+position = Vector2(88, 588)
+
+[node name="Tree08" parent="YSortEntities" instance=ExtResource("5_tree")]
+position = Vector2(104, 1192)
+
+[node name="Tree09" parent="YSortEntities" instance=ExtResource("5_tree")]
+position = Vector2(1948, 466)
+
+[node name="Tree10" parent="YSortEntities" instance=ExtResource("6_tree_pine")]
+position = Vector2(1958, 1212)
+
+[node name="Tree11" parent="YSortEntities" instance=ExtResource("6_tree_pine")]
+position = Vector2(1362, 350)
+
+[node name="Tree12" parent="YSortEntities" instance=ExtResource("6_tree_pine")]
+position = Vector2(496, 1974)
+
+[node name="Tree13" parent="YSortEntities" instance=ExtResource("5_tree")]
+position = Vector2(1528, 1948)
+
+[node name="StaticBoundaries" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="TopWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(-64, -64, 2112, -64, 2112, 0, -64, 0)
+
+[node name="BottomWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(-64, 2048, 2112, 2048, 2112, 2112, -64, 2112)
+
+[node name="LeftWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(-64, 0, 0, 0, 0, 2048, -64, 2048)
+
+[node name="RightWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(2048, 0, 2112, 0, 2112, 2048, 2048, 2048)

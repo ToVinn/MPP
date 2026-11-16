@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://c3temple89123"]
+
+[ext_resource type="Script" path="res://scripts/scenes/ch3_quest3_temple.gd" id="1_temple_script"]
+[ext_resource type="Script" path="res://scripts/entities/topdown_map.gd" id="2_map_script"]
+[ext_resource type="PackedScene" uid="uid://bply8271aren" path="res://prefabs/player.tscn" id="3_player_scene"]
+[ext_resource type="PackedScene" uid="uid://cxinteract771" path="res://prefabs/interactable.tscn" id="4_interact_scene"]
+[ext_resource type="PackedScene" uid="uid://btpl8912641" path="res://prefabs/ui/temple_puzzle_ui.tscn" id="5_tpuzzle_scene"]
+[ext_resource type="PackedScene" uid="uid://dmcut8912301" path="res://prefabs/ui/memory_cutscene.tscn" id="6_cutscene_scene"]
+[ext_resource type="PackedScene" uid="uid://b32hud873491" path="res://prefabs/ui/hud.tscn" id="7_hud_scene"]
+[ext_resource type="PackedScene" uid="uid://c421712a10dialog" path="res://prefabs/ui/dialogue_box.tscn" id="8_dialog_scene"]
+[ext_resource type="PackedScene" uid="uid://chst8921782" path="res://prefabs/environment/treasure_chest.tscn" id="9_chest_scene"]
+[ext_resource type="PackedScene" uid="uid://pllr892178" path="res://prefabs/environment/pillar.tscn" id="10_pillar_scene"]
+[ext_resource type="PackedScene" uid="uid://wfst8921782" path="res://prefabs/environment/waterfall_statue.tscn" id="11_statue_scene"]
+
+[node name="Ch3Quest3Temple" type="Node2D"]
+script = ExtResource("1_temple_script")
+
+[node name="TopdownMap" type="Node2D" parent="."]
+script = ExtResource("2_map_script")
+map_type = "ancient_temple"
+map_size = Vector2(2752, 1536)
+
+[node name="StaticBoundaries" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="TopWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 2752, 0, 2752, 140, 0, 140)
+
+[node name="BottomWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 1440, 2752, 1440, 2752, 1536, 0, 1536)
+
+[node name="LeftWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 1536, 0, 1536)
+
+[node name="RightWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(2650, 0, 2752, 0, 2752, 1536, 2650, 1536)
+
+[node name="YSortEntities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="PillarL1" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1020, 380)
+
+[node name="PillarL2" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1020, 680)
+
+[node name="PillarL3" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1020, 980)
+
+[node name="PillarL4" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1020, 1240)
+
+[node name="PillarR1" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1730, 380)
+
+[node name="PillarR2" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1730, 680)
+
+[node name="PillarR3" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1730, 980)
+
+[node name="PillarR4" parent="YSortEntities" instance=ExtResource("10_pillar_scene")]
+position = Vector2(1730, 1240)
+
+[node name="StatueLeft" parent="YSortEntities" instance=ExtResource("11_statue_scene")]
+position = Vector2(850, 320)
+
+[node name="StatueRight" parent="YSortEntities" instance=ExtResource("11_statue_scene")]
+position = Vector2(1900, 320)
+
+[node name="TempleChest" parent="YSortEntities" instance=ExtResource("9_chest_scene")]
+position = Vector2(2250, 1150)
+chest_id = "temple_sacred_chest"
+reward_heal = 2
+lore_message = "★ Peti Suci Kuil Dibuka: Memperoleh Elixir Vitalitas (+2 Hati) & Esensi Pelindung Astra!"
+
+[node name="Player" parent="YSortEntities" instance=ExtResource("3_player_scene")]
+position = Vector2(1380, 1380)
+
+[node name="HollowKnightNPC" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1380, 920)
+prompt_text = "[E] Hadapi The Hollow Knight"
+visual_type = "npc_knight"
+
+[node name="TempleBarrier" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1380, 680)
+prompt_text = "[E] Buka Piringan Konstelasi Astra"
+visual_type = "relief"
+
+[node name="MainCrystal" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1380, 230)
+prompt_text = "[E] Sentuh Kristal Utama Astra"
+visual_type = "crystal"
+
+[node name="TemplePuzzleUI" parent="." instance=ExtResource("5_tpuzzle_scene")]
+
+[node name="MemoryCutscene" parent="." instance=ExtResource("6_cutscene_scene")]
+
+[node name="HUD" parent="." instance=ExtResource("7_hud_scene")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("8_dialog_scene")]

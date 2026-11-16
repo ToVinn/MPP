@@ -1,0 +1,16 @@
+# Godot 4
+.godot/
+
+# Large compressed archive (contents are extracted in Model/)
+Model.zip
+
+# Temporary and log files
+*.tmp
+*.log
+godot_*.log
+output.log
+live_screen.png
+
+# OS metadata
+.DS_Store
+Thumbs.db

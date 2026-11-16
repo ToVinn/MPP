@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3 uid="uid://c0prologue8912"]
+
+[ext_resource type="Script" path="res://scripts/scenes/ch0_prologue.gd" id="1_prologue_script"]
+[ext_resource type="Script" path="res://scripts/entities/topdown_map.gd" id="2_map_script"]
+[ext_resource type="PackedScene" uid="uid://bply8271aren" path="res://prefabs/player.tscn" id="3_player_scene"]
+[ext_resource type="PackedScene" uid="uid://cxinteract771" path="res://prefabs/interactable.tscn" id="4_interact_scene"]
+[ext_resource type="PackedScene" uid="uid://b32hud873491" path="res://prefabs/ui/hud.tscn" id="5_hud_scene"]
+[ext_resource type="PackedScene" uid="uid://c421712a10dialog" path="res://prefabs/ui/dialogue_box.tscn" id="6_dialog_scene"]
+[ext_resource type="Texture2D" path="res://Model/Lyra/Idle/south/frame_000.png" id="7_lyra_tex"]
+[ext_resource type="PackedScene" uid="uid://chasm8921782" path="res://prefabs/environment/chasm.tscn" id="8_chasm_scene"]
+[ext_resource type="PackedScene" uid="uid://chst8921782" path="res://prefabs/environment/treasure_chest.tscn" id="9_chest_scene"]
+[ext_resource type="PackedScene" uid="uid://tree892178" path="res://prefabs/environment/tree.tscn" id="10_tree_scene"]
+[ext_resource type="PackedScene" uid="uid://bldg892178" path="res://prefabs/environment/building.tscn" id="11_bldg_scene"]
+
+[node name="Ch0Prologue" type="Node2D"]
+script = ExtResource("1_prologue_script")
+
+[node name="TopdownMap" type="Node2D" parent="."]
+script = ExtResource("2_map_script")
+map_type = "forest_village"
+map_size = Vector2(2752, 1536)
+
+[node name="StaticBoundaries" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="TopWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 2752, 0, 2752, 140, 0, 140)
+
+[node name="BottomWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 1420, 2752, 1420, 2752, 1536, 0, 1536)
+
+[node name="LeftWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 1536, 0, 1536)
+
+[node name="RightWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(2650, 0, 2752, 0, 2752, 1536, 2650, 1536)
+
+[node name="RiverNorthWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(1150, 0, 1250, 0, 1250, 1040, 1150, 1040)
+
+[node name="RiverSouthWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(1150, 1160, 1250, 1160, 1250, 1536, 1150, 1536)
+
+[node name="StreamChasm" parent="." instance=ExtResource("8_chasm_scene")]
+position = Vector2(1190, 1090)
+chasm_size = Vector2(60, 95)
+pushback_offset = Vector2(-45, 0)
+
+[node name="YSortEntities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="TreeForest1" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(180, 520)
+
+[node name="TreeForest2" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(220, 980)
+
+[node name="TreeForest3" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(480, 480)
+
+[node name="TreeForest4" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(520, 1050)
+
+[node name="TreeRiver1" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(1060, 460)
+
+[node name="TreeRiver2" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(1060, 960)
+
+[node name="TreeVillage1" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(1340, 360)
+
+[node name="TreeVillage2" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(2150, 420)
+
+[node name="TreeVillage3" parent="YSortEntities" instance=ExtResource("10_tree_scene")]
+position = Vector2(2380, 1150)
+
+[node name="VillageHouseNorth" parent="YSortEntities" instance=ExtResource("11_bldg_scene")]
+position = Vector2(1650, 440)
+
+[node name="VillageHouseCenter" parent="YSortEntities" instance=ExtResource("11_bldg_scene")]
+position = Vector2(1950, 680)
+
+[node name="VillageHouseSouth" parent="YSortEntities" instance=ExtResource("11_bldg_scene")]
+position = Vector2(1680, 1100)
+
+[node name="VillageChest" parent="YSortEntities" instance=ExtResource("9_chest_scene")]
+position = Vector2(1420, 620)
+chest_id = "prologue_chest"
+reward_heal = 2
+lore_message = "★ Peti Desa Astra: Memperoleh Elixir Vitalitas (+2 Hati) & Ramuan Pemulih Tenaga!"
+
+[node name="Player" parent="YSortEntities" instance=ExtResource("3_player_scene")]
+position = Vector2(320, 780)
+
+[node name="BlueCrystal" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(420, 780)
+prompt_text = "[E] Ambil Kristal Biru"
+visual_type = "crystal"
+
+[node name="LyraApparition" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(420, 720)
+scale = Vector2(0.38, 0.38)
+modulate = Color(0.4, 0.8, 1.0, 0.0)
+texture = ExtResource("7_lyra_tex")
+
+[node name="ParkourTutorialSign" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1080, 1090)
+prompt_text = "[E] Petunjuk Parkour Sungai"
+visual_type = "relief"
+dialogue_sequence = [{
+"speaker": "Papan Petunjuk",
+"text": "Dermaga terputus oleh arus sungai yang deras. Tekan [Spasi] sambil berlari untuk melakukan lompatan Parkour!"
+}]
+
+[node name="EldrinNPC" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1520, 720)
+prompt_text = "[E] Bicara dengan Eldrin"
+visual_type = "npc_eldrin"
+
+[node name="ExitDoor" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(2550, 750)
+prompt_text = "[E] Masuki Gua Kristal"
+visual_type = "door"
+
+[node name="HUD" parent="." instance=ExtResource("5_hud_scene")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("6_dialog_scene")]
+
+[node name="BlackCurtain" type="ColorRect" parent="."]
+visible = false
+z_index = 80
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 3100.0
+offset_bottom = 1900.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

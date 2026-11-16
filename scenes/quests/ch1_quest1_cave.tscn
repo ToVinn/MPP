@@ -1,0 +1,159 @@
+[gd_scene load_steps=15 format=3 uid="uid://c1cave89123"]
+
+[ext_resource type="Script" path="res://scripts/scenes/ch1_quest1_cave.gd" id="1_cave_script"]
+[ext_resource type="Script" path="res://scripts/entities/topdown_map.gd" id="2_map_script"]
+[ext_resource type="PackedScene" uid="uid://bply8271aren" path="res://prefabs/player.tscn" id="3_player_scene"]
+[ext_resource type="PackedScene" uid="uid://cxinteract771" path="res://prefabs/interactable.tscn" id="4_interact_scene"]
+[ext_resource type="PackedScene" uid="uid://bcpz8921731" path="res://prefabs/ui/crystal_puzzle_ui.tscn" id="5_cpuzzle_scene"]
+[ext_resource type="PackedScene" uid="uid://dmcut8912301" path="res://prefabs/ui/memory_cutscene.tscn" id="6_cutscene_scene"]
+[ext_resource type="PackedScene" uid="uid://b32hud873491" path="res://prefabs/ui/hud.tscn" id="7_hud_scene"]
+[ext_resource type="PackedScene" uid="uid://c421712a10dialog" path="res://prefabs/ui/dialogue_box.tscn" id="8_dialog_scene"]
+[ext_resource type="PackedScene" uid="uid://mnstr8921782" path="res://prefabs/monster.tscn" id="9_monster_scene"]
+[ext_resource type="PackedScene" uid="uid://chasm8921782" path="res://prefabs/environment/chasm.tscn" id="10_chasm_scene"]
+[ext_resource type="PackedScene" uid="uid://spike8921782" path="res://prefabs/environment/spike_trap.tscn" id="11_spike_scene"]
+[ext_resource type="PackedScene" uid="uid://chst8921782" path="res://prefabs/environment/treasure_chest.tscn" id="12_chest_scene"]
+[ext_resource type="PackedScene" uid="uid://cryst8921782" path="res://prefabs/environment/crystal_formation.tscn" id="13_crystal_scene"]
+[ext_resource type="PackedScene" uid="uid://crock892178" path="res://prefabs/environment/cave_rock.tscn" id="14_rock_scene"]
+
+[node name="Ch1Quest1Cave" type="Node2D"]
+script = ExtResource("1_cave_script")
+
+[node name="TopdownMap" type="Node2D" parent="."]
+script = ExtResource("2_map_script")
+map_type = "crystal_cave"
+map_size = Vector2(2752, 1536)
+
+[node name="StaticBoundaries" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="TopWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 2752, 0, 2752, 120, 0, 120)
+
+[node name="BottomWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 1440, 2752, 1440, 2752, 1536, 0, 1536)
+
+[node name="LeftWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 1536, 0, 1536)
+
+[node name="RightWall" type="CollisionPolygon2D" parent="StaticBoundaries"]
+polygon = PackedVector2Array(2650, 0, 2752, 0, 2752, 1536, 2650, 1536)
+
+[node name="ChasmBridge" parent="." instance=ExtResource("10_chasm_scene")]
+position = Vector2(1750, 950)
+chasm_size = Vector2(70, 120)
+pushback_offset = Vector2(-50, 0)
+
+[node name="SpikeTrap1" parent="." instance=ExtResource("11_spike_scene")]
+position = Vector2(1500, 600)
+cycle_period = 3.0
+time_offset = 0.0
+
+[node name="SpikeTrap2" parent="." instance=ExtResource("11_spike_scene")]
+position = Vector2(1500, 700)
+cycle_period = 3.0
+time_offset = 1.0
+
+[node name="YSortEntities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="YSortEntities" instance=ExtResource("3_player_scene")]
+position = Vector2(360, 200)
+
+[node name="TreasureChest1" parent="YSortEntities" instance=ExtResource("12_chest_scene")]
+position = Vector2(230, 180)
+chest_id = "cave_chest_north"
+reward_heal = 2
+lore_message = "★ Peti Gua Utara: Memperoleh Elixir Vitalitas (+2 Hati) & Jurnal Penjelajah Astra!"
+
+[node name="TreasureChest2" parent="YSortEntities" instance=ExtResource("12_chest_scene")]
+position = Vector2(2250, 1050)
+chest_id = "cave_chest_south"
+reward_heal = 2
+lore_message = "★ Peti Gua Selatan: Memperoleh Elixir Vitalitas (+2 Hati) & Inti Resonansi Kristal!"
+
+[node name="Rock1" parent="YSortEntities" instance=ExtResource("14_rock_scene")]
+position = Vector2(650, 240)
+rock_type = 1
+
+[node name="Rock2" parent="YSortEntities" instance=ExtResource("14_rock_scene")]
+position = Vector2(1350, 720)
+rock_type = 2
+
+[node name="Rock3" parent="YSortEntities" instance=ExtResource("14_rock_scene")]
+position = Vector2(1950, 750)
+rock_type = 3
+
+[node name="Rock4" parent="YSortEntities" instance=ExtResource("14_rock_scene")]
+position = Vector2(2100, 1150)
+rock_type = 1
+
+[node name="Fragment1" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(1150, 260)
+prompt_text = "[E] Ambil Fragmen Kristal Azure (1)"
+visual_type = "crystal"
+
+[node name="Fragment2" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(780, 740)
+prompt_text = "[E] Ambil Fragmen Kristal Cobalt (2)"
+visual_type = "crystal"
+
+[node name="Fragment3" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(2450, 1250)
+prompt_text = "[E] Ambil Fragmen Kristal Sapphire (3)"
+visual_type = "crystal"
+
+[node name="CrystalGlow1" parent="YSortEntities" instance=ExtResource("13_crystal_scene")]
+position = Vector2(1150, 230)
+crystal_scale = 1.2
+
+[node name="CrystalGlow2" parent="YSortEntities" instance=ExtResource("13_crystal_scene")]
+position = Vector2(780, 710)
+crystal_scale = 1.2
+
+[node name="CrystalGlow3" parent="YSortEntities" instance=ExtResource("13_crystal_scene")]
+position = Vector2(2450, 1220)
+crystal_scale = 1.2
+
+[node name="Monster1" parent="YSortEntities" instance=ExtResource("9_monster_scene")]
+position = Vector2(850, 260)
+monster_type = "crystal_golem"
+max_hp = 3
+speed = 85.0
+chase_speed = 130.0
+
+[node name="Monster2" parent="YSortEntities" instance=ExtResource("9_monster_scene")]
+position = Vector2(1500, 650)
+monster_type = "crystal_golem"
+max_hp = 3
+speed = 90.0
+chase_speed = 140.0
+
+[node name="Monster3" parent="YSortEntities" instance=ExtResource("9_monster_scene")]
+position = Vector2(2250, 1250)
+monster_type = "crystal_golem"
+max_hp = 4
+speed = 95.0
+chase_speed = 145.0
+
+[node name="PuzzleDoor" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(2450, 450)
+prompt_text = "[E] Periksa Mekanisme Pintu Kuno"
+visual_type = "door"
+
+[node name="MemoryAltar" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(2550, 200)
+prompt_text = "[E] Sentuh Kristal Ingatan"
+visual_type = "altar"
+
+[node name="ExitDoor" parent="YSortEntities" instance=ExtResource("4_interact_scene")]
+position = Vector2(2650, 150)
+prompt_text = "[E] Menuju Desa yang Terlupakan"
+visual_type = "door"
+
+[node name="CrystalPuzzleUI" parent="." instance=ExtResource("5_cpuzzle_scene")]
+
+[node name="MemoryCutscene" parent="." instance=ExtResource("6_cutscene_scene")]
+
+[node name="HUD" parent="." instance=ExtResource("7_hud_scene")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("8_dialog_scene")]

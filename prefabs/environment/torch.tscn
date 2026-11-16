@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://torch892178"]
+
+[ext_resource type="Script" path="res://scripts/entities/torch_prop.gd" id="1_torch_script"]
+
+[node name="TorchProp" type="Node2D"]
+z_index = 0
+script = ExtResource("1_torch_script")
+

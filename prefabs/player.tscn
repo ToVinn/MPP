@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://bply8271aren"]
+
+[ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_player_script"]
+[ext_resource type="Texture2D" path="res://Model/Aren/Sprites/IDLE/idle_down.png" id="2_aren_idle"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_feet"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 42.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 0
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1_player_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -22)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("2_aren_idle")
+hframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_feet")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -10)
+zoom = Vector2(1.75, 1.75)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="InteractDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractDetector"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_interact")
+
+[node name="PromptLabel" type="Label" parent="."]
+offset_left = -80.0
+offset_top = -65.0
+offset_right = 80.0
+offset_bottom = -40.0
+theme_override_colors/font_color = Color(1.0, 0.9, 0.4, 1.0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "[E] Periksa"
+horizontal_alignment = 1

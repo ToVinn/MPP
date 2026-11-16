@@ -1,0 +1,95 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbend8912741"]
+
+[ext_resource type="Script" path="res://scripts/scenes/ending_bad.gd" id="1_bad_script"]
+[ext_resource type="Script" path="res://scripts/scenes/bad_ending_art.gd" id="2_art_script"]
+[ext_resource type="PackedScene" uid="uid://c421712a10dialog" path="res://prefabs/ui/dialogue_box.tscn" id="3_dialog_scene"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.18, 0.18, 0.22, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.6, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="EndingBad" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bad_script")
+
+[node name="EndingVisual" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_art_script")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -220.0
+offset_right = 380.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="StatusBadge" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.6, 0.6, 1.0)
+theme_override_font_sizes/font_size = 18
+text = "— BAD ENDING —"
+horizontal_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1.0)
+theme_override_font_sizes/font_size = 36
+text = "THE ETERNAL SILENCE"
+horizontal_alignment = 1
+
+[node name="QuoteLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.72, 0.9)
+theme_override_font_sizes/font_size = 18
+text = "\"Even when memories return, not everything can be recovered.\""
+horizontal_alignment = 1
+
+[node name="ReturnBtn" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "Kembali ke Menu Utama"
+
+[node name="DialogueBox" parent="." instance=ExtResource("3_dialog_scene")]
+

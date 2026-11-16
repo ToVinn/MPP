@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bldg892178"]
+
+[ext_resource type="Script" path="res://scripts/entities/world_building.gd" id="1_bldg_script"]
+[ext_resource type="Texture2D" path="res://Model/Ruined Village/spr_old_building_1.png" id="2_bldg_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
+size = Vector2(160, 160)
+
+[node name="Building" type="StaticBody2D"]
+z_index = 0
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_bldg_script")
+texture = ExtResource("2_bldg_tex")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -88)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_bldg_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -80)
+shape = SubResource("RectangleShape2D_base")

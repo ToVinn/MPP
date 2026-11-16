@@ -110,15 +110,32 @@ Game mengevaluasi total **Memory Point** yang diperoleh pemain (0–3 poin):
 
 ---
 
-## 🚀 Cara Menjalankan Game
+## 🚀 Cara Menjalankan Game (Fleksibel untuk PC/Laptop Mana Saja)
 
-1. **Menggunakan Godot Editor:**
-   - Buka Godot Engine 4.x.
-   - Pilih **Import** lalu arahkan ke folder `game MPP` yang berisi file `project.godot`.
-   - Tekan tombol **Play Project** (`F5`) di pojok kanan atas editor.
+Game ini dapat dijalankan di laptop maupun PC dengan berbagai cara:
 
-2. **Menjalankan Langsung via Command Line:**
-   ```bash
-   "C:\Users\TEFA RPL\Downloads\kvin\Godot_v4.7.2-stable_win64.exe\Godot_v4.7.2-stable_win64.exe" --path "c:\Users\TEFA RPL\Downloads\kvin\game MPP"
-   ```
+### Cara 1: 1-Click Launcher (Paling Mudah & Otomatis)
+Cukup **double-click** file:
+* **`run_game.bat`** (untuk Windows Command Prompt) atau **`run_game.ps1`** (untuk PowerShell).
+> *Script ini otomatis mendeteksi direktori proyek di PC Anda serta mencari file `Godot*.exe` di sistem tanpa perlu mengetik path secara manual.*
+
+---
+
+### Cara 2: Menggunakan Godot Editor
+1. Buka **Godot Engine 4.x** (v4.2 / v4.3 / v4.4+) di komputer Anda.
+2. Klik tombol **Import**, arahkan ke folder proyek ini (pilih file `project.godot`).
+3. Klik **Edit** dan tekan tombol **Play Project** (`F5`) di pojok kanan atas.
+
+---
+
+### Cara 3: Menjalankan Langsung via Command Line
+Buka terminal (CMD / PowerShell / Bash) langsung di dalam folder proyek ini:
+```bash
+# 1. Jika Godot sudah terdaftar di environment PATH:
+godot --path .
+
+# 2. Atau panggil file executable Godot di komputer masing-masing:
+"C:\path\ke\Godot_v4.x.exe" --path .
+```
+*(Ganti `"C:\path\ke\Godot_v4.x.exe"` sesuai lokasi file Godot pada laptop/PC Anda, dan tanda titik `.` akan otomatis menggunakan folder game saat ini).*
 

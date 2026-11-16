@@ -1,5 +1,23 @@
-$wshell = New-Object -ComObject WScript.Shell
-$cmd = '"""C:\Users\TEFA RPL\Downloads\kvin\Godot_v4.7.2-stable_win64.exe\Godot_v4.7.2-stable_win64.exe""" --path """C:\Users\TEFA RPL\Downloads\kvin\game MPP"""'
-$wshell.Run($cmd, 1, $false)
-Start-Sleep -Seconds 2
-Get-Process -Name "Godot*" | Select-Object Id, ProcessName, Responding
+# Portable Godot Launcher Helper
+$projectDir = (Get-Item "$PSScriptRoot\..\..").FullName
+
+$godotExe = $null
+$candidates = Get-ChildItem -Path @($projectDir, "$projectDir\..", "$env:USERPROFILE\Downloads") -Filter "Godot*.exe" -Recurse -Depth 2 -ErrorAction SilentlyContinue
+if ($candidates) {
+    $godotExe = $candidates[0].FullName
+}
+
+if (-not $godotExe) {
+    $pathCmd = Get-Command "godot" -ErrorAction SilentlyContinue
+    if ($pathCmd) { $godotExe = $pathCmd.Source }
+}
+
+if ($godotExe) {
+    $wshell = New-Object -ComObject WScript.Shell
+    $cmd = """$godotExe"" --path ""$projectDir"""
+    $wshell.Run($cmd, 1, $false)
+    Start-Sleep -Seconds 2
+    Get-Process -Name "Godot*" -ErrorAction SilentlyContinue | Select-Object Id, ProcessName, Responding
+} else {
+    Write-Warning "Godot executable not found."
+}
